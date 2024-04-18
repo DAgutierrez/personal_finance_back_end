@@ -15,6 +15,15 @@ class Movement extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'description',
+        'date',
+        'amount',
+        'movement_category_id',
+        'payment_method_id',
+        'process_date'
+    ];
+
     public static function create($data)
     {
         $movements = Movement::all();
@@ -75,8 +84,7 @@ class Movement extends Model
 
             $categoryResponse = [
                 'category_id' => $key,
-                'movement_category' => $movementCategory,
-                'movement_name' => $movementCategory['name']
+                'category_name' => $movementCategory['name']
             ];
             
 

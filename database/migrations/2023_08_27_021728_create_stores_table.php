@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unsignedBigInteger('movement_category_id');
+            $table->foreign('movement_category_id')->references('id')->on('movement_categories');
         });
     }
 

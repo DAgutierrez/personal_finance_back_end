@@ -11,6 +11,11 @@ class Store extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'movement_category_id'
+    ];
+
     public function movementCategory()
     {
         return $this->belongsTo('App\Models\MovementCategory', 'movement_category_id');

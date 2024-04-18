@@ -18,6 +18,10 @@ return new class extends Migration
             $table->integer('amount');
             $table->timestamps();
             $table->softDeletes();
+            $table->unsignedBigInteger('movement_category_id');
+            $table->foreign('movement_category_id')->references('id')->on('movement_categories');
+            $table->unsignedBigInteger('payment_method_id');
+            $table->foreign('payment_method_id')->references('id')->on('payment_methods');
         });
     }
 

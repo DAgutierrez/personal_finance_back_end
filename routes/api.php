@@ -22,6 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/movements/create', [MovementController::class, 'create']);
 Route::post('/stores/create', [StoreController::class, 'create']);
+Route::post('/stores/import', [StoreController::class, 'import']);
 Route::get('/movements/groupByCategory', [MovementController::class, 'groupByCategory']);
 Route::get('/store/groupByType', [StoreController::class, 'groupByType']);
 Route::post('/store/createFromBancoEstado', [StoreController::class, 'createFromBancoEstado']);
+Route::post('/movements/import/falabella', [MovementController::class, 'importFalabella']);
+
