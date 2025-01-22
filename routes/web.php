@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Laravel\Telescope\Telescope;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Telescope::routes();
 });
