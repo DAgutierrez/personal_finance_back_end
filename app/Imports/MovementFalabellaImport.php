@@ -32,14 +32,26 @@ class MovementFalabellaImport implements ToCollection, WithHeadingRow
          
             if(isset($row['descripcion'])) {
 
+                $store = Store::where('name',$row['descripcion'] )->first();
+
+                if(!isset($store)) {
+                    $newStore = [
+                        'name' => $row['descripcion'],
+                        'movement_category_id' => 1
+                    ];
+                    $store = Store::updateOrCreate($newStore);
+                }
+
+                
+
                 $unixDT = ($row['fecha'] - 25569) * 86400;
                 $gmtDate = gmdate("d-m-Y H:i:s", $unixDT);
                 $date = new Carbon($gmtDate);
                 $dateString = $date->format('Y-m-d');
 
-                $store = Store::where('name',$row['descripcion'] )->first();
+            
 
-                $category_id = isset($store) ? $store->movement_category_id : 4;
+                $category_id = $store->movement_category_id;
 
                 $isNegative = str_contains($row['valor_cuota'], '-');
 
