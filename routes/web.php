@@ -19,6 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Telescope::routes();
-});
+// Route::middleware(['auth:sanctum'])->group(function () {
+//     Telescope::routes();
+// });
