@@ -72,7 +72,7 @@ class Movement extends Model
 
     public static function groupByCategory($data)
     {
-        $movements = Movement::all()->groupBy('movement_category_id');
+        $movements = Movement::where('process_date', $data['process_date'])->groupBy('movement_category_id');
 
         $keys =  $movements->keys();
 
