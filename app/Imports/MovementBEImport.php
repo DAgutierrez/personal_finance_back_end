@@ -57,11 +57,11 @@ class MovementBEImport implements ToCollection, WithHeadingRow
 
                 // $isNegative = str_contains($row['valor_cuota'], '-');
 
-                if(isset($row['abonos'])) {
+                if(isset($row['cargos'])) {
                     $newMovement = [
                         'date' => $date,
                         'description' => $row['descripcion'],
-                        'amount' => $row['abonos'],
+                        'amount' => $row['cargos'],
                         'movement_category_id' => $category_id,
                         'payment_method_id' => 2,
                         'process_date' => $this->processDate
