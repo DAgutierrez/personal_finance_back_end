@@ -8,6 +8,7 @@ use App\Models\Movement;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\MovementFalabellaImport;
+use App\Imports\MovementBEImport;
 
 class MovementController extends Controller
 {
@@ -26,6 +27,18 @@ class MovementController extends Controller
 
         $data = $request->all();
         $import = new MovementFalabellaImport($data['process_date']);
+        Excel::import($import, $request->file('file'));
+    
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
+
+    public function importBE(Request $request)
+    {
+
+        $data = $request->all();
+        $import = new MovementBEImport($data['process_date']);
         Excel::import($import, $request->file('file'));
     
         return response()->json([

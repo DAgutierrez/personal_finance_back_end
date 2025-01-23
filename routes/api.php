@@ -27,4 +27,7 @@ Route::post('/movements/groupByCategory', [MovementController::class, 'groupByCa
 Route::get('/store/groupByType', [StoreController::class, 'groupByType']);
 Route::post('/store/createFromBancoEstado', [StoreController::class, 'createFromBancoEstado']);
 Route::post('/movements/import/falabella', [MovementController::class, 'importFalabella']);
+Route::post('/movements/import/be', [MovementController::class, 'importBE']);
+
+
 

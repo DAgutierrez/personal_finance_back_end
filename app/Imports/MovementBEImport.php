@@ -13,7 +13,7 @@ use App\Models\Store;
 use App\Models\Movement;
 use \Carbon\Carbon;
 
-class MovementFalabellaImport implements ToCollection, WithHeadingRow
+class MovementBEImport implements ToCollection, WithHeadingRow
 {
 
     public function __construct($processDate)
@@ -30,13 +30,15 @@ class MovementFalabellaImport implements ToCollection, WithHeadingRow
         foreach($rows as $row) {
        
          
-            if(isset($row['descripcion'])) {
+            if(isset($row['descripción'])) {
 
-                $store = Store::where('name',$row['descripcion'] )->first();
+                $description = $row['descripción'];
+
+                $store = Store::where('name',$description )->first();
 
                 if(!isset($store)) {
                     $newStore = [
-                        'name' => $row['descripcion'],
+                        'name' => $description,
                         'movement_category_id' => 13
                     ];
                     $store = Store::updateOrCreate($newStore);
@@ -53,15 +55,15 @@ class MovementFalabellaImport implements ToCollection, WithHeadingRow
 
                 $category_id = $store->movement_category_id;
 
-                $isNegative = str_contains($row['valor_cuota'], '-');
+                // $isNegative = str_contains($row['valor_cuota'], '-');
 
-                if($isNegative == false) {
+                if(isset($row['abonos'])) {
                     $newMovement = [
                         'date' => $date,
                         'description' => $row['descripcion'],
-                        'amount' => $row['valor_cuota'],
+                        'amount' => $row['abonos'],
                         'movement_category_id' => $category_id,
-                        'payment_method_id' => 1,
+                        'payment_method_id' => 2,
                         'process_date' => $this->processDate
                     ];
                     $movementCreated = Movement::updateOrCreate($newMovement);
