@@ -38,7 +38,7 @@ class MovementController extends Controller
     {
 
         $data = $request->all();
-        $import = new MovementBEImport($data['process_date']);
+        $import = new MovementBEImport($data['process_date'], $data['cuenta']);
         Excel::import($import, $request->file('file'));
     
         return response()->json([

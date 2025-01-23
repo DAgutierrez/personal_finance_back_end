@@ -16,9 +16,10 @@ use \Carbon\Carbon;
 class MovementBEImport implements ToCollection, WithHeadingRow
 {
 
-    public function __construct($processDate)
+    public function __construct($processDate, $cuenta)
     {
         $this->processDate = $processDate;
+        $this->cuenta = $cuenta;
     }
     /**
     * @param Collection $collection
@@ -56,6 +57,10 @@ class MovementBEImport implements ToCollection, WithHeadingRow
                 $category_id = $store->movement_category_id;
 
                 // $isNegative = str_contains($row['valor_cuota'], '-');
+                $paymentMethodId = 3;
+                if($this->cuenta == 'cuenta-rut') {
+                    $paymentMethodId = 2;
+                }
 
                 if(isset($row['cargos'])) {
                     $newMovement = [
@@ -63,7 +68,7 @@ class MovementBEImport implements ToCollection, WithHeadingRow
                         'description' => $row['descripcion'],
                         'amount' => $row['cargos'],
                         'movement_category_id' => $category_id,
-                        'payment_method_id' => 2,
+                        'payment_method_id' => $paymentMethodId,
                         'process_date' => $this->processDate
                     ];
                     $movementCreated = Movement::updateOrCreate($newMovement);
