@@ -30,9 +30,9 @@ class MovementBEImport implements ToCollection, WithHeadingRow
         foreach($rows as $row) {
        
          
-            if(isset($row['descripción'])) {
+            if(isset($row['descripcion'])) {
 
-                $description = $row['descripción'];
+                $description = $row['descripcion'];
 
                 $store = Store::where('name',$description )->first();
 
