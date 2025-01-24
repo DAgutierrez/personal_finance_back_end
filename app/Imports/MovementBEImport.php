@@ -27,7 +27,13 @@ class MovementBEImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {   
         \Log::info($rows);
-        Movement::where('process_date', $this->processDate)->delete();
+
+        $paymentMethodId = 3;
+        if($this->cuenta == 'cuenta-rut') {
+            $paymentMethodId = 2;
+        }
+
+        Movement::where('process_date', $this->processDate)->where('payment_method_id', $paymentMethodId)->delete();
         foreach($rows as $row) {
        
          
@@ -57,10 +63,7 @@ class MovementBEImport implements ToCollection, WithHeadingRow
                 $category_id = $store->movement_category_id;
 
                 // $isNegative = str_contains($row['valor_cuota'], '-');
-                $paymentMethodId = 3;
-                if($this->cuenta == 'cuenta-rut') {
-                    $paymentMethodId = 2;
-                }
+               
 
                 if(isset($row['cargos'])) {
                     $newMovement = [

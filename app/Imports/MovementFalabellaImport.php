@@ -26,7 +26,7 @@ class MovementFalabellaImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {   
         \Log::info($rows);
-        Movement::where('process_date', $this->processDate)->delete();
+        Movement::where('process_date', $this->processDate)->where('payment_method_id', 1)->delete();
         foreach($rows as $row) {
        
          
