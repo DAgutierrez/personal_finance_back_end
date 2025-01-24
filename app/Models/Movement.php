@@ -72,11 +72,19 @@ class Movement extends Model
 
     public static function groupByCategory($data)
     {
-        $movements = Movement::where('process_date', $data['process_date'])->where('payment_method_id', $data['payment_method_id'])->get()->groupBy('movement_category_id');
+        $movements = collect();
+        if($data['all'] == true) {
+            $movements = Movement::where('process_date', $data['process_date'])->get()->groupBy('movement_category_id');
+        } else {
+            $movements = Movement::where('process_date', $data['process_date'])->where('payment_method_id', $data['payment_method_id'])->get()->groupBy('movement_category_id');
+        }
+        
 
         $keys =  $movements->keys();
 
         $response = [];
+
+        $total =  0;
         
         foreach($keys as $key) {
 
@@ -98,6 +106,8 @@ class Movement extends Model
 
             $categoryResponse['total'] = $amountTotal;
 
+            $total += $amountTotal;
+
             array_push($response, $categoryResponse );
 
 
@@ -106,7 +116,8 @@ class Movement extends Model
 
 
         return response()->json([
-            'response' => $response
+            'response' => $response,
+            'total' => $total
         ]);
     }
     
