@@ -26,11 +26,23 @@ class Movement extends Model
 
     public static function create($data)
     {
-        $movements = Movement::all();
-        $movementCategories= MovementCategory::all();
-        $stores= Store::with(['movementCategory' =>  function ($query) {
+        // $movements = Movement::all();
+        // $movementCategories= MovementCategory::all();
+        $stores = Store::with(['movementCategory' =>  function ($query) {
             $query->with(['movementType']);
         }])->get();
+
+
+
+        $date = Carbon::createFromFormat('d-m-Y', $data['date']);
+
+        $movement = [
+            'date' => $date,
+            'description' => $data['description'],
+            'process_date' => $data['process_date'],
+            'payment_method_id' => $data['payment_method_id'],
+            'amount' => $data['amount']
+        ];
 
 
         foreach($data as $movement) {
