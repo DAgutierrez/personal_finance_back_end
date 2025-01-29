@@ -129,7 +129,7 @@ class Movement extends Model
 
         }
 
-        $transferencias  = $response->first(function (int $value, int $key) {
+        $transferencias  = $response->first(function ($value) {
             return $value['category_name'] == 'Transferencias';
         });
 
