@@ -95,7 +95,7 @@ class Movement extends Model
 
         $keys =  $movements->keys();
 
-        $response = [];
+        $response = collect();
 
         $total =  0;
         
@@ -121,7 +121,10 @@ class Movement extends Model
 
             $total += $amountTotal;
 
-            array_push($response, $categoryResponse );
+ 
+
+            $response->push($categoryResponse);
+
 
 
         }
