@@ -33,6 +33,8 @@ class MovementBEImport implements ToCollection, WithHeadingRow
             $paymentMethodId = 2;
         } else if ($this->cuenta == 'scotiabank') {
             $paymentMethodId = 4;
+        } else if ($this->cuenta == 'tc') {
+            $paymentMethodId = 5;
         }
 
         Movement::where('process_date', $this->processDate)->where('payment_method_id', $paymentMethodId)->delete();
