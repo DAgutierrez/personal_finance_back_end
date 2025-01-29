@@ -41,7 +41,8 @@ class Movement extends Model
             'description' => $data['description'],
             'process_date' => $data['process_date'],
             'payment_method_id' => $data['payment_method_id'],
-            'amount' => $data['amount']
+            'amount' => $data['amount'],
+            'movem'
         ];
 
 
@@ -125,11 +126,16 @@ class Movement extends Model
 
         }
 
+        $transferencias  = $response->first(function (int $value, int $key) {
+            return $value['category_name'] == 'Transferencias';
+        });
+
 
 
         return response()->json([
             'response' => $response,
-            'total' => $total
+            'total_bruto' => $total,
+            'total_neto' => $total - $transferencias['total']
         ]);
     }
     
