@@ -129,16 +129,22 @@ class Movement extends Model
 
         }
 
+        $totalNeto =  $total;
+
         $transferencias  = $response->first(function ($value) {
             return $value['category_name'] == 'Transferencias';
         });
+
+        if(isset($transferencias)) {
+           $totalNeto =  $total - $transferencias['total'];
+        }
 
 
 
         return response()->json([
             'response' => $response,
             'total_bruto' => $total,
-            'total_neto' => $total - $transferencias['total']
+            'total_neto' => $totalNeto
         ]);
     }
     
