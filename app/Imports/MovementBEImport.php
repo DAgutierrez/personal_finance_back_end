@@ -75,7 +75,7 @@ class MovementBEImport implements ToCollection, WithHeadingRow
                     $newMovement = [
                         'date' => $date,
                         'description' => $row['descripcion'],
-                        'amount' => $row['cargos'],
+                        'amount' => str_replace('-', '',$row['cargos']),
                         'movement_category_id' => $category_id,
                         'payment_method_id' => $paymentMethodId,
                         'process_date' => $this->processDate
